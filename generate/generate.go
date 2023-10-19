@@ -65,22 +65,20 @@ func generateVersion() {
 	// try matching an exact tag first
 	describeCmd := exec.Command("git", "describe")
 	output, err := describeCmd.Output()
-	if err != nil {
-		panic(err)
-	}
-	version := fmt.Sprintf(`"%s"`, strings.TrimSpace(string(output)))
+	version := ""
 
 	// not an exact tag; use long format
-	if strings.Contains(string(output), "-g") {
-		describeCmd = exec.Command("git", "describe", "--all", "--long")
-		if output, err = describeCmd.Output(); err != nil {
-			panic(err)
-		}
-		matches := versionRegexp.FindStringSubmatch(string(output))
-		if matches == nil {
+	if err != nil || strings.Contains(string(output), "-g") {
+		branch, branchErr := exec.Command("git", "branch", "--show-current").Output()
+		hash, hashErr := exec.Command("git", "rev-parse", "--short", "HEAD").Output()
+		if branchErr != nil || hashErr != nil {
 			panic("error getting version string from git")
 		}
-		version = fmt.Sprintf(`"%s-%s"`, matches[1], matches[2])
+		branchStr := strings.TrimSpace(string(branch))
+		hashStr := strings.TrimSpace(string(hash))
+		version = fmt.Sprintf(`"%s-%s"`, branchStr, hashStr)
+	} else {
+		version = fmt.Sprintf(`"%s"`, strings.TrimSpace(string(output)))
 	}
 
 	s := strings.ReplaceAll(versionTemplate, "{{version}}", version)

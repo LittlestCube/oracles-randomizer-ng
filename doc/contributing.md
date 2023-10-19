@@ -1,4 +1,4 @@
-# Building and contributing to oracles-randomizer
+# Building and contributing to oracles-randomizer-ng
 
 If you plan to build the randomizer from source or contribute to development,
 here are some things to know:
@@ -9,54 +9,33 @@ here are some things to know:
 An environment with Git and Go is required to build the randomizer. The
 following instructions are for building the dev branch.
 
-First, clone and set up the repository:
+First, install git and golang, and add `$HOME/go/bin` to your `$PATH` (for `esc`):
 
 ```
-go get github.com/jangler/oracles-randomizer
-cd $GOPATH/src/github.com/jangler/oracles-randomizer
-git fetch
-git checkout dev
-git submodule init
-git submodule update
+sudo apt install git golang
+echo "PATH=$HOME/go/bin:$PATH" >> $HOME/.bashrc
 ```
 
-You'll get warnings about being unable to build the code, which is expected and
-since some of the code isn't tracked by the repository and hasn't been
-generated locally yet. Then install Go dependencies:
+Alternately, you can copy `$HOME/go/bin/esc` to somewhere that's already
+in your `$PATH`.
+
+Then, clone and cd into the repository:
 
 ```
-go get github.com/mjibson/esc
-go get github.com/gdamore/tcell
-go get github.com/yuin/gopher-lua
-go get gopkg.in/yaml.v2
+mkdir -p $HOME/go/src/github.com/LittlestCube/oracles-randomizer-ng
+git clone https://github.com/LittlestCube/oracles-randomizer-ng.git $HOME/go/src/github.com/LittlestCube/oracles-randomizer-ng
+cd $HOME/go/src/github.com/LittlestCube/oracles-randomizer-ng
 ```
 
-Last, generate and build the code (do both whenever changes are made):
+Now you can run the makefile:
 
 ```
-go generate
-go build
+make
 ```
 
-You'll probably have to add `$GOPATH/bin` to your "path" environment variable
-in order for `esc` to work for code generation. Alternately, you can copy
-`$GOPATH/bin/esc` to somewhere that's already in your "path".
-
-
-## Branches
-
-There are three main branches in the repository:
-
-- **master**, which is for tagged release versions and documentation changes.
-- **patch**, which is for bugfixes.
-- **dev**, which is for new features or other major changes and may not be
-  fully functional.
-
-Other branches for specific features may branch off **dev** to be merged back
-into **dev** later. If you intend to make a pull request, make sure to base
-your changes on the appropriate branch. Also ask in advance unless you're
-making a simple bugfix. *Also* also run `go test ./randomizer/` to make sure
-tests pass before making commits.
+This runs some first-time setup, as well as runs `go generate` and `go build`
+which compiles the code. You will need to run `make` again anytime changes
+are made. Now there should be a binary `oracles-randomizer-ng`.
 
 
 ## Organization

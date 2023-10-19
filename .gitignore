@@ -3,6 +3,8 @@ oracles-randomizer-ng.exe
 embed.go
 main.go
 version.go
+go.mod
+go.sum
 checklist/
 dist/
 gbc/

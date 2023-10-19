@@ -19,8 +19,7 @@ At this time, this version of the randomizer only works on the commandline, and
 you must be able to build the disassembly first. Non-technical users can use the
 [web interface](http://oosarando.zeldahacking.net/) instead.
 
-To run it locally: You must first build oracles-disasm from the submodule in
-this project, which produces modified oracles ROMs. Then, run
+To run it locally: Follow the instructions in [contributing.md](doc/contributing.md) Then, run
 `./oracles-randomizer-ng oracles-disasm/seasons.gbc <output rom>`. Only Seasons
 is supported at the moment.
 
