@@ -6,8 +6,7 @@ here are some things to know:
 
 ## Building
 
-An environment with Git and Go is required to build the randomizer. The
-following instructions are for building the dev branch.
+An environment with Git and Go is required to build the randomizer.
 
 First, install git and golang, and add `$HOME/go/bin` to your `$PATH` (for `esc`):
 
